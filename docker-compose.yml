@@ -17,4 +17,4 @@ services:
    environment:
      STUBBY_PORT: 8882
    volumes:
-     - ./rw-mgm-integration/src/test/resources/stubby4j/integrations.yml:/usr/local/stubby.yml
+     - ./feign-integrations/src/test/resources/stubby4j/integrations.yml:/usr/local/stubby.yml

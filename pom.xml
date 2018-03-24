@@ -20,6 +20,7 @@
     <modules>
         <module>customer-web</module>
         <module>customer-repository</module>
+        <module>feign-integration</module>
     </modules>
 
     <properties>
@@ -91,6 +92,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>customer-repository</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>feign-integration</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
