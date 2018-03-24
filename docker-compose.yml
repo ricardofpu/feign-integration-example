@@ -1,0 +1,20 @@
+version: '2'
+services:
+ postgres:
+   image: postgres:9.4
+   ports:
+     - "5432:5432"
+   environment:
+     - POSTGRES_DB=customer_web
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=root
+     - MAX_CONNECTIONS=300
+ stubby4j:
+   image: joncanning/stubby4j
+   ports:
+     - "8787:8787"
+     - "8882:8882"
+   environment:
+     STUBBY_PORT: 8882
+   volumes:
+     - ./rw-mgm-integration/src/test/resources/stubby4j/integrations.yml:/usr/local/stubby.yml
