@@ -20,6 +20,10 @@
     <modules>
         <module>customer-web</module>
         <module>customer-repository</module>
+        <module>customer-domain</module>
+        <module>customer-application</module>
+        <module>customer-api</module>
+        <module>customer-infrastructure</module>
         <module>feign-integration</module>
     </modules>
 
@@ -92,6 +96,24 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>customer-repository</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>customer-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>customer-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>customer-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
