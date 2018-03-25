@@ -16,6 +16,21 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>customer-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>customer-domain</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>customer-application</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>customer-repository</artifactId>
         </dependency>
 
