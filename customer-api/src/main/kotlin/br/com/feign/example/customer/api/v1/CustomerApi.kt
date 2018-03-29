@@ -39,7 +39,7 @@ interface CustomerApi {
     fun updateStatus(@PathVariable("customerId") customerId: String,
                      @RequestBody @Valid request: UpdateStatusRequest)
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     @GetMapping("/{customerId}/validate", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun validate(@PathVariable("customerId") customerId: String)

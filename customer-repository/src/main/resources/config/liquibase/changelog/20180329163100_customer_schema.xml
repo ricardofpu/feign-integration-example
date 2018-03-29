@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20180329163100-1" author="rw">
+        <createTable tableName="customer">
+            <column name="id" type="java.sql.Types.CLOB">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="full_name" type="java.sql.Types.CLOB">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="nick_name" type="java.sql.Types.CLOB">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="birth_date" type="java.sql.Types.CLOB">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="gender" type="java.sql.Types.CLOB">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="civil_state" type="java.sql.Types.CLOB">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="status" type="java.sql.Types.CLOB">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="java.sql.Types.TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
