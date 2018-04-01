@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.feign.example</groupId>
-    <artifactId>feing-integration-example</artifactId>
+    <artifactId>feign-integration-example</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>feign-integration-example</name>
@@ -25,6 +25,7 @@
         <module>customer-api</module>
         <module>customer-infrastructure</module>
         <module>feign-integration</module>
+        <module>global-exception-handler</module>
     </modules>
 
     <properties>
@@ -44,6 +45,7 @@
         <commons.beanutils.version>1.9.3</commons.beanutils.version>
         <postgresql.version>9.4-1206-jdbc42</postgresql.version>
         <javax.validation.version>2.0.0.Final</javax.validation.version>
+        <feign.version>9.3.1</feign.version>
     </properties>
 
     <dependencies>
@@ -138,6 +140,12 @@
             </dependency>
 
             <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>global-exception-handler</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${hikari.cp.version}</version>
@@ -201,6 +209,22 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${javax.validation.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-gson</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-slf4j</artifactId>
+                <version>${feign.version}</version>
             </dependency>
 
         </dependencies>
