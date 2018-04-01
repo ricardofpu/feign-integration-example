@@ -20,19 +20,24 @@ class Customer(
         repository.save(this)
     }
 
-    fun update(repository: CustomerRepository) {
+    fun update(repository: CustomerRepository, oldCustomer: Customer) {
+        this.status = oldCustomer.status
         repository.update(this)
     }
 
     fun updateStatus(status: Status, repository: CustomerRepository) {
         this.validateStatusChange(status)
-        repository.updateStatus(this.id!!, status)
+        repository.updateStatus(this.id, status)
         this.status = status
     }
 
     fun delete(repository: CustomerRepository) {
         this.validateStatusToDelete()
-        repository.delete(this.id!!)
+        repository.delete(this.id)
+    }
+
+    fun validate() {
+        this.validateStatus()
     }
 
     //STATUS
@@ -50,8 +55,14 @@ class Customer(
         }
     }
 
+    private fun validateStatus() {
+        if (Customer.Status.ACTIVATED != this.status) {
+            throw Exception("GLOBAL_ERROR")
+        }
+    }
+
     private fun validateStatusToDelete() {
-        if(Customer.Status.ACTIVATED == this.status) {
+        if (Customer.Status.ACTIVATED == this.status) {
             throw Exception("GLOBAL_ERROR")
         }
     }

@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 
 @Repository
-class JdbcCustomerRepository @Autowired constructor(private val jdbcTemplate: JdbcTemplate) : CustomerRepository {
+open class JdbcCustomerRepository @Autowired constructor(private val jdbcTemplate: JdbcTemplate) : CustomerRepository {
 
     private val logger = LogManager.getLogger(this.javaClass)
 

@@ -30,10 +30,12 @@ class CustomerTest {
 
         val customer = createBasicCustomer()
 
-        customer.update(customerRepository)
+        val customerUpdated = br.com.feign.example.customer.domain.updateCustomer(customer.id)
+
+        customerUpdated.update(customerRepository, customer)
 
         assertEquals(Customer.Status.ACTIVATED, customer.status)
-        Mockito.verify(customerRepository).update(customer)
+        Mockito.verify(customerRepository).update(customerUpdated)
     }
 
     @Test
@@ -47,6 +49,22 @@ class CustomerTest {
         customer.updateStatus(Customer.Status.INACTIVATED, customerRepository)
 
         assertEquals(Customer.Status.INACTIVATED, customer.status)
-        Mockito.verify(customerRepository).updateStatus(customer.id!!, Customer.Status.INACTIVATED)
+        Mockito.verify(customerRepository).updateStatus(customer.id, Customer.Status.INACTIVATED)
+    }
+
+    @Test
+    fun deleteCustomer() {
+        whenever(customerRepository.delete(any())).thenReturn(1)
+
+        val customer = createBasicCustomer()
+
+        whenever(customerRepository.updateStatus(any(), any())).thenReturn(1)
+
+        customer.updateStatus(Customer.Status.INACTIVATED, customerRepository)
+        assertEquals(Customer.Status.INACTIVATED, customer.status)
+
+        customer.delete(customerRepository)
+
+        Mockito.verify(customerRepository).delete(customer.id)
     }
 }

@@ -14,11 +14,11 @@ import java.net.InetAddress
 @SpringBootApplication
 @Configuration
 @Import(RepositoryConfig::class)
-@ComponentScan(basePackages = ["br.com.feign.example.customer.web"])
+@ComponentScan(basePackages = ["br.com.feign.example"])
 @EnableAutoConfiguration(exclude = [(LiquibaseAutoConfiguration::class)])
 open class ApplicationConfig
 
-private val logger = LogManager.getLogger("br.com.feing.example.customer.web.CustomerApplication")
+private val logger = LogManager.getLogger("br.com.feign.example.customer.web.CustomerApplication")
 
 fun main(args: Array<String>) {
     val app = SpringApplication.run(ApplicationConfig::class.java, *args)
