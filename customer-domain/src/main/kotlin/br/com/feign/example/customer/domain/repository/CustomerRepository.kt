@@ -4,6 +4,8 @@ import br.com.feign.example.customer.domain.Customer
 
 interface CustomerRepository {
 
+    fun find(customerId: Customer.Id): Customer?
+
     fun save(customer: Customer): Int
 
     fun update(customer: Customer): Int

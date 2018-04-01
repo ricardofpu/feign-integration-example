@@ -5,7 +5,7 @@ fun createBasicCustomer(id: Customer.Id = Customer.Id(),
                    nickName: NickName? = NickName("Customer"),
                    birthDate: BirthDate? = BirthDate("01/01/1990"),
                    civilState: CivilState? = CivilState("Married"),
-                   gender: Gender? = Gender("Male")) =
+                   gender: Gender = Gender("Male")) =
         Customer(
                 id = id,
                 fullName = fullName,

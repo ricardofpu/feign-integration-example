@@ -5,11 +5,11 @@ import java.util.*
 import javax.validation.constraints.NotNull
 
 class Customer(
-        @field:NotNull val id: Id?,
+        @field:NotNull val id: Id,
         val fullName: FullName? = null,
         val nickName: NickName? = null,
         val birthDate: BirthDate? = null,
-        @field:NotNull val gender: Gender?,
+        @field:NotNull val gender: Gender,
         val civilState: CivilState? = null
 
 ) {

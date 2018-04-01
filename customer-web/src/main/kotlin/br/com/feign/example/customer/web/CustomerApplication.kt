@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -14,7 +15,7 @@ import java.net.InetAddress
 @Configuration
 @Import(RepositoryConfig::class)
 @ComponentScan(basePackages = ["br.com.feign.example.customer.web"])
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = [(LiquibaseAutoConfiguration::class)])
 open class ApplicationConfig
 
 private val logger = LogManager.getLogger("br.com.feing.example.customer.web.CustomerApplication")
