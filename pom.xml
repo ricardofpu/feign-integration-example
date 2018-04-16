@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.feign.example</groupId>
-    <artifactId>feing-integration-example</artifactId>
+    <artifactId>feign-integration-example</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>feign-integration-example</name>
@@ -25,13 +25,15 @@
         <module>customer-api</module>
         <module>customer-infrastructure</module>
         <module>feign-integration</module>
+        <module>global-exception-handler</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <kotlin.version>1.2.0</kotlin.version>
+        <kotlin.version>1.2.31</kotlin.version>
+        <kotlin.mockito.version>1.5.0</kotlin.mockito.version>
         <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
         <spring.restdocs.version>1.2.1.RELEASE</spring.restdocs.version>
         <commons.lang3.version>3.5</commons.lang3.version>
@@ -44,6 +46,7 @@
         <commons.beanutils.version>1.9.3</commons.beanutils.version>
         <postgresql.version>9.4-1206-jdbc42</postgresql.version>
         <javax.validation.version>2.0.0.Final</javax.validation.version>
+        <feign.netflix.version>1.4.4.RELEASE</feign.netflix.version>
     </properties>
 
     <dependencies>
@@ -89,6 +92,12 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>customer-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>customer-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -107,6 +116,14 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>customer-domain</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>customer-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -120,6 +137,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>feign-integration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>global-exception-handler</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -154,6 +177,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.version}</version>
@@ -174,7 +203,7 @@
             <dependency>
                 <groupId>com.nhaarman</groupId>
                 <artifactId>mockito-kotlin-kt1.1</artifactId>
-                <version>1.5.0</version>
+                <version>${kotlin.mockito.version}</version>
             </dependency>
 
             <dependency>
@@ -189,6 +218,13 @@
                 <version>${javax.validation.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-netflix</artifactId>
+                <version>1.4.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

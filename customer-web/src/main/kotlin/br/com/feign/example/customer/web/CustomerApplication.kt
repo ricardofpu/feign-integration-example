@@ -11,7 +11,14 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import java.net.InetAddress
 
-private val logger = LogManager.getLogger("br.com.feing.example.customer.web.CustomerApplication")
+@SpringBootApplication
+@Configuration
+@Import(RepositoryConfig::class)
+@ComponentScan(basePackages = ["br.com.feign.example"])
+@EnableAutoConfiguration(exclude = [(LiquibaseAutoConfiguration::class)])
+open class ApplicationConfig
+
+private val logger = LogManager.getLogger("br.com.feign.example.customer.web.CustomerApplication")
 
 fun main(args: Array<String>) {
     val app = SpringApplication.run(ApplicationConfig::class.java, *args)
@@ -31,9 +38,3 @@ fun main(args: Array<String>) {
 }
 
 
-@SpringBootApplication
-@Configuration
-@Import(RepositoryConfig::class)
-@ComponentScan(basePackages = ["br.com.feign.example.customer.web"])
-@EnableAutoConfiguration
-open class ApplicationConfig

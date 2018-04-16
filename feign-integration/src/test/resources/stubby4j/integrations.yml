@@ -1,0 +1,27 @@
+- request:
+    method: GET
+    url: ^/v1/customers/notfound$
+
+  response:
+    status: 404
+    headers:
+      content-type: application/json
+
+- request:
+    method: GET
+    url: ^/v1/customers/.+$
+
+  response:
+    status: 201
+    headers:
+      content-type: application/json
+    body: >
+      {
+        "id": "e014135c-70dd-41cc-8eac-90bba7dc39d6",
+        "fullName": "RICHARD RABIN",
+        "nickName": "Richard",
+        "status": "ACTIVE",
+        "birthDate": "01/01/1990",
+        "gender": "Male",
+        "civilState": "Married"
+      }
