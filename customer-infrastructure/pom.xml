@@ -14,6 +14,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>global-exception-handler</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
@@ -23,10 +28,17 @@
             <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
 
+        <!-- Log4J -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+        </dependency>
+        <!-- /Log4J -->
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>

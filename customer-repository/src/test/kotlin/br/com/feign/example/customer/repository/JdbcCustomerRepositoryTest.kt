@@ -90,15 +90,15 @@ class JdbcCustomerRepositoryTest : RepositoryBaseTest() {
 
         val saved = repository.save(customer)
         assertEquals(1, saved)
-        assertEquals(Customer.Status.ACTIVATED, customer.status)
+        assertEquals(Customer.Status.ACTIVE, customer.status)
 
-        val updated = repository.updateStatus(customer.id, Customer.Status.INACTIVATED)
+        val updated = repository.updateStatus(customer.id, Customer.Status.INACTIVE)
         assertEquals(1, updated)
 
         val find = repository.find(customer.id)
         assertNotNull(find)
         assertEquals(customer.id, find?.id)
-        assertEquals(Customer.Status.INACTIVATED, find?.status)
+        assertEquals(Customer.Status.INACTIVE, find?.status)
     }
 
     @Test

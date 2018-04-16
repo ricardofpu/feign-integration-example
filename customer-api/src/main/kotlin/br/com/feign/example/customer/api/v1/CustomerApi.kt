@@ -6,10 +6,19 @@ import br.com.feign.example.customer.api.v1.request.UpdateCustomerRequest
 import br.com.feign.example.customer.api.v1.request.UpdateStatusRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.ResponseStatus
 import javax.validation.Valid
 
-@RequestMapping("/v1/customers/")
+@RequestMapping(value = ["/v1/customers"])
 interface CustomerApi {
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -30,7 +39,7 @@ interface CustomerApi {
 
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @GetMapping("/{customerId}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(value = ["/{customerId}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun find(@PathVariable("customerId") customerId: String): CustomerRepresentation
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

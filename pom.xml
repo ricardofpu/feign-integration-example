@@ -32,7 +32,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <kotlin.version>1.2.0</kotlin.version>
+        <kotlin.version>1.2.31</kotlin.version>
+        <kotlin.mockito.version>1.5.0</kotlin.mockito.version>
         <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
         <spring.restdocs.version>1.2.1.RELEASE</spring.restdocs.version>
         <commons.lang3.version>3.5</commons.lang3.version>
@@ -45,7 +46,7 @@
         <commons.beanutils.version>1.9.3</commons.beanutils.version>
         <postgresql.version>9.4-1206-jdbc42</postgresql.version>
         <javax.validation.version>2.0.0.Final</javax.validation.version>
-        <feign.version>9.3.1</feign.version>
+        <feign.netflix.version>1.4.4.RELEASE</feign.netflix.version>
     </properties>
 
     <dependencies>
@@ -176,6 +177,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.version}</version>
@@ -196,7 +203,7 @@
             <dependency>
                 <groupId>com.nhaarman</groupId>
                 <artifactId>mockito-kotlin-kt1.1</artifactId>
-                <version>1.5.0</version>
+                <version>${kotlin.mockito.version}</version>
             </dependency>
 
             <dependency>
@@ -212,21 +219,12 @@
             </dependency>
 
             <dependency>
-                <groupId>io.github.openfeign</groupId>
-                <artifactId>feign-okhttp</artifactId>
-                <version>${feign.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-netflix</artifactId>
+                <version>1.4.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>io.github.openfeign</groupId>
-                <artifactId>feign-gson</artifactId>
-                <version>${feign.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openfeign</groupId>
-                <artifactId>feign-slf4j</artifactId>
-                <version>${feign.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 

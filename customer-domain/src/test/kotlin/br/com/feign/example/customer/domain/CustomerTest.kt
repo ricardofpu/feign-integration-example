@@ -20,7 +20,7 @@ class CustomerTest {
 
         customer.create(customerRepository)
 
-        assertEquals(Customer.Status.ACTIVATED, customer.status)
+        assertEquals(Customer.Status.ACTIVE, customer.status)
         Mockito.verify(customerRepository).save(customer)
     }
 
@@ -34,7 +34,7 @@ class CustomerTest {
 
         customerUpdated.update(customerRepository, customer)
 
-        assertEquals(Customer.Status.ACTIVATED, customer.status)
+        assertEquals(Customer.Status.ACTIVE, customer.status)
         Mockito.verify(customerRepository).update(customerUpdated)
     }
 
@@ -44,12 +44,12 @@ class CustomerTest {
 
         val customer = createBasicCustomer()
 
-        assertEquals(Customer.Status.ACTIVATED, customer.status)
+        assertEquals(Customer.Status.ACTIVE, customer.status)
 
-        customer.updateStatus(Customer.Status.INACTIVATED, customerRepository)
+        customer.updateStatus(Customer.Status.INACTIVE, customerRepository)
 
-        assertEquals(Customer.Status.INACTIVATED, customer.status)
-        Mockito.verify(customerRepository).updateStatus(customer.id, Customer.Status.INACTIVATED)
+        assertEquals(Customer.Status.INACTIVE, customer.status)
+        Mockito.verify(customerRepository).updateStatus(customer.id, Customer.Status.INACTIVE)
     }
 
     @Test
@@ -60,8 +60,8 @@ class CustomerTest {
 
         whenever(customerRepository.updateStatus(any(), any())).thenReturn(1)
 
-        customer.updateStatus(Customer.Status.INACTIVATED, customerRepository)
-        assertEquals(Customer.Status.INACTIVATED, customer.status)
+        customer.updateStatus(Customer.Status.INACTIVE, customerRepository)
+        assertEquals(Customer.Status.INACTIVE, customer.status)
 
         customer.delete(customerRepository)
 

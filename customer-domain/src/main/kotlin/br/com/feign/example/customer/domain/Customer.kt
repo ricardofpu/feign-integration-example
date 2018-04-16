@@ -14,7 +14,7 @@ class Customer(
 
 ) {
 
-    var status: Customer.Status = Status.ACTIVATED
+    var status: Customer.Status = Status.ACTIVE
 
     fun create(repository: CustomerRepository) {
         repository.save(this)
@@ -42,12 +42,12 @@ class Customer(
 
     //STATUS
     private fun validateStatusChange(status: Customer.Status) {
-        if (Customer.Status.ACTIVATED == this.status) {
-            if (Customer.Status.INACTIVATED != status) {
+        if (Customer.Status.ACTIVE == this.status) {
+            if (Customer.Status.INACTIVE != status) {
                 throw Exception("GLOBAL_ERROR")
             }
-        } else if (Customer.Status.INACTIVATED == this.status) {
-            if (Customer.Status.ACTIVATED != status) {
+        } else if (Customer.Status.INACTIVE == this.status) {
+            if (Customer.Status.ACTIVE != status) {
                 throw Exception("GLOBAL_ERROR")
             }
         } else {
@@ -56,13 +56,13 @@ class Customer(
     }
 
     private fun validateStatus() {
-        if (Customer.Status.ACTIVATED != this.status) {
+        if (Customer.Status.ACTIVE != this.status) {
             throw Exception("GLOBAL_ERROR")
         }
     }
 
     private fun validateStatusToDelete() {
-        if (Customer.Status.ACTIVATED == this.status) {
+        if (Customer.Status.ACTIVE == this.status) {
             throw Exception("GLOBAL_ERROR")
         }
     }
@@ -71,8 +71,8 @@ class Customer(
 
     enum class Status {
 
-        ACTIVATED,
-        INACTIVATED
+        ACTIVE,
+        INACTIVE
 
     }
 }
