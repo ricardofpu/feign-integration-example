@@ -1,5 +1,6 @@
 package br.com.feign.example.feign.integration.decoder
 
+import br.com.feign.example.customer.infrastructure.exception.CustomerErrorCode
 import br.com.feign.example.global.exception.BusinessException
 import br.com.feign.example.global.exception.NotFoundException
 import br.com.feign.example.global.exception.error.ErrorCode
@@ -16,6 +17,6 @@ class CustomerErrorDecoder : ErrorDecoder {
             throw NotFoundException()
         }
 
-        throw BusinessException(ErrorCode(response.status().toString(), "CUSTOMER_INTEGRATION_FAIL"))
+        throw BusinessException(CustomerErrorCode.CUSTOMER_INTEGRATION_FAILED)
     }
 }

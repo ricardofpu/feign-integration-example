@@ -1,14 +1,21 @@
 package br.com.feign.example.customer.domain
 
 import br.com.feign.example.customer.domain.repository.CustomerRepository
+import br.com.feign.example.customer.infrastructure.exception.CustomerErrorCode
+import br.com.feign.example.global.exception.BusinessException
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Test
 import org.mockito.Mockito
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CustomerTest {
+
+    companion object {
+        const val TEST_BUSINESS_BROKE_MESSAGE = "Test failed because your business rule broke. Please check this."
+    }
 
     private val customerRepository: CustomerRepository = mock()
 
@@ -66,5 +73,17 @@ class CustomerTest {
         customer.delete(customerRepository)
 
         Mockito.verify(customerRepository).delete(customer.id)
+    }
+
+    @Test
+    fun failDeleteCustomerWhenStatusIsActive() {
+        val customer = createBasicCustomer()
+
+        try {
+            customer.delete(customerRepository)
+            throw Exception(TEST_BUSINESS_BROKE_MESSAGE)
+        } catch (e: BusinessException) {
+            assertTrue(e.message?.contains(CustomerErrorCode.STATUS_INVALID_TO_DELETE.code)!!)
+        }
     }
 }

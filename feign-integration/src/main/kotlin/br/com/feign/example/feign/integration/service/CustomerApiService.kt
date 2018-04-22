@@ -15,7 +15,11 @@ class CustomerApiService : CustomerService {
     @Qualifier(FeignQualifier.CUSTOMER_API)
     private lateinit var customerApi: CustomerApi
 
-    override fun getCustomer(customerId: Customer.Id): Customer {
+    override fun findById(customerId: Customer.Id): Customer {
         return customerApi.find(customerId.value).toDomain()
+    }
+
+    override fun validate(customerId: Customer.Id) {
+        customerApi.validate(customerId.value)
     }
 }

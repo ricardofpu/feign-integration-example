@@ -4,5 +4,7 @@ import br.com.feign.example.customer.domain.Customer
 
 interface CustomerService {
 
-    fun getCustomer(customerId: Customer.Id): Customer
+    fun findById(customerId: Customer.Id): Customer
+
+    fun validate(customerId: Customer.Id)
 }

@@ -1,6 +1,8 @@
 package br.com.feign.example.customer.domain
 
 import br.com.feign.example.customer.domain.repository.CustomerRepository
+import br.com.feign.example.customer.infrastructure.exception.CustomerErrorCode
+import br.com.feign.example.global.exception.BusinessException
 import java.util.*
 import javax.validation.constraints.NotNull
 
@@ -11,7 +13,6 @@ class Customer(
         val birthDate: BirthDate? = null,
         @field:NotNull val gender: Gender,
         val civilState: CivilState? = null
-
 ) {
 
     var status: Customer.Status = Status.ACTIVE
@@ -44,26 +45,26 @@ class Customer(
     private fun validateStatusChange(status: Customer.Status) {
         if (Customer.Status.ACTIVE == this.status) {
             if (Customer.Status.INACTIVE != status) {
-                throw Exception("GLOBAL_ERROR")
+                throw BusinessException(CustomerErrorCode.CHANGE_STATUS_NOT_ALLOWED)
             }
         } else if (Customer.Status.INACTIVE == this.status) {
             if (Customer.Status.ACTIVE != status) {
-                throw Exception("GLOBAL_ERROR")
+                throw BusinessException(CustomerErrorCode.CHANGE_STATUS_NOT_ALLOWED)
             }
         } else {
-            throw Exception("Status change not permitted")
+            throw BusinessException(CustomerErrorCode.CHANGE_STATUS_NOT_ALLOWED)
         }
     }
 
     private fun validateStatus() {
         if (Customer.Status.ACTIVE != this.status) {
-            throw Exception("GLOBAL_ERROR")
+            throw BusinessException(CustomerErrorCode.CUSTOMER_IS_NOT_ACTIVE)
         }
     }
 
     private fun validateStatusToDelete() {
         if (Customer.Status.ACTIVE == this.status) {
-            throw Exception("GLOBAL_ERROR")
+            throw BusinessException(CustomerErrorCode.STATUS_INVALID_TO_DELETE)
         }
     }
 
