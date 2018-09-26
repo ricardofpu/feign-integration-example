@@ -13,10 +13,6 @@ import kotlin.test.assertTrue
 
 class CustomerTest {
 
-    companion object {
-        const val TEST_BUSINESS_BROKE_MESSAGE = "Test failed because your business rule broke. Please check this."
-    }
-
     private val customerRepository: CustomerRepository = mock()
 
     @Test

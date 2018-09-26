@@ -13,14 +13,15 @@ import br.com.feign.example.customer.application.handler.CustomerCommandHandler
 import br.com.feign.example.customer.domain.Customer
 import br.com.feign.example.customer.web.utils.toCommand
 import br.com.feign.example.customer.web.utils.toRepresentation
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-class CustomerController @Autowired constructor(private val commandHandler: CustomerCommandHandler) : CustomerApi {
+class CustomerController constructor(
+    private val commandHandler: CustomerCommandHandler
+) : CustomerApi {
 
     override fun create(@RequestBody @Valid request: CreateCustomerRequest): CustomerRepresentation {
         val command = request.toCommand()
@@ -28,8 +29,10 @@ class CustomerController @Autowired constructor(private val commandHandler: Cust
         return customer.toRepresentation()
     }
 
-    override fun update(@PathVariable("customerId") customerId: String,
-                        @RequestBody @Valid request: UpdateCustomerRequest): CustomerRepresentation {
+    override fun update(
+        @PathVariable("customerId") customerId: String,
+        @RequestBody @Valid request: UpdateCustomerRequest
+    ): CustomerRepresentation {
         val command = request.toCommand(customerId)
         val customer = commandHandler.handler(command)
         return customer.toRepresentation()
@@ -46,8 +49,10 @@ class CustomerController @Autowired constructor(private val commandHandler: Cust
         return customer.toRepresentation()
     }
 
-    override fun updateStatus(@PathVariable("customerId") customerId: String,
-                              @RequestBody @Valid request: UpdateStatusRequest) {
+    override fun updateStatus(
+        @PathVariable("customerId") customerId: String,
+        @RequestBody @Valid request: UpdateStatusRequest
+    ) {
         val command = UpdateStatus(Customer.Id(customerId), Customer.Status.valueOf(request.status))
         commandHandler.handler(command)
     }

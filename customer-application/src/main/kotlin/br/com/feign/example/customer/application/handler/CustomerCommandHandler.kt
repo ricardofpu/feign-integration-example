@@ -1,17 +1,23 @@
 package br.com.feign.example.customer.application.handler
 
-import br.com.feign.example.customer.application.commands.*
+import br.com.feign.example.customer.application.commands.CreateCustomer
+import br.com.feign.example.customer.application.commands.DeleteCustomer
+import br.com.feign.example.customer.application.commands.FindCustomer
+import br.com.feign.example.customer.application.commands.UpdateCustomer
+import br.com.feign.example.customer.application.commands.UpdateStatus
+import br.com.feign.example.customer.application.commands.ValidateCustomer
 import br.com.feign.example.customer.domain.Customer
 import br.com.feign.example.customer.domain.repository.CustomerRepository
 import br.com.feign.example.global.exception.NotFoundException
 import br.com.feign.example.global.exception.error.ResourceValue
 import org.apache.logging.log4j.LogManager
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-open class CustomerCommandHandler @Autowired constructor(private val repository: CustomerRepository) {
+open class CustomerCommandHandler constructor(
+    private val repository: CustomerRepository
+) {
 
     private val log = LogManager.getLogger(this.javaClass)
 
@@ -19,12 +25,12 @@ open class CustomerCommandHandler @Autowired constructor(private val repository:
         log.debug("Received command to create a customer in data base with id: {}", command.customerId.value)
 
         val customer = Customer(
-                id = command.customerId,
-                fullName = command.fullName,
-                nickName = command.nickName,
-                birthDate = command.birthDate,
-                gender = command.gender,
-                civilState = command.civilState
+            id = command.customerId,
+            fullName = command.fullName,
+            nickName = command.nickName,
+            birthDate = command.birthDate,
+            gender = command.gender,
+            civilState = command.civilState
         )
 
         customer.create(repository)
@@ -39,12 +45,12 @@ open class CustomerCommandHandler @Autowired constructor(private val repository:
         val customer = getCustomer(command.customerId)
 
         val newCustomer = Customer(
-                id = command.customerId,
-                fullName = command.fullName,
-                nickName = command.nickName,
-                birthDate = command.birthDate,
-                gender = command.gender,
-                civilState = command.civilState
+            id = command.customerId,
+            fullName = command.fullName,
+            nickName = command.nickName,
+            birthDate = command.birthDate,
+            gender = command.gender,
+            civilState = command.civilState
         )
 
         newCustomer.update(repository, customer)
@@ -71,11 +77,14 @@ open class CustomerCommandHandler @Autowired constructor(private val repository:
     }
 
     fun handler(command: UpdateStatus) {
-        log.debug("Received command to update status from a customer in data base with id: {}", command.customerId.value)
+        log.debug(
+            "Received command to update status from a customer in data base with id: {}",
+            command.customerId.value
+        )
 
-        val coupon = getCustomer(command.customerId)
+        val customer = getCustomer(command.customerId)
 
-        coupon.updateStatus(command.status, repository)
+        customer.updateStatus(command.status, repository)
 
         log.debug("Customer updated with id: [{}]", command.customerId.value)
     }
@@ -83,17 +92,17 @@ open class CustomerCommandHandler @Autowired constructor(private val repository:
     fun handler(command: ValidateCustomer) {
         log.debug("Received command to validate a customer in data base with id: {}", command.customerId.value)
 
-        val coupon = getCustomer(command.customerId)
+        val customer = getCustomer(command.customerId)
 
-        coupon.validate()
+        customer.validate()
 
         log.debug("Customer validated with id: [{}]", command.customerId.value)
     }
 
-    private fun getCustomer(customerId: Customer.Id) =
-            Optional.ofNullable(repository.find(customerId))
-                    .orElseThrow {
-                        NotFoundException(ResourceValue(Customer::class.java, customerId.value))
-                    }
+    private fun getCustomer(customerId: Customer.Id): Customer =
+        Optional.ofNullable(repository.find(customerId))
+            .orElseThrow {
+                NotFoundException(ResourceValue(Customer::class.java, customerId.value))
+            }
 
 }

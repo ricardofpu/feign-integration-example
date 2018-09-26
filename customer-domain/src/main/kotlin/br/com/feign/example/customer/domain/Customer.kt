@@ -4,15 +4,14 @@ import br.com.feign.example.customer.domain.repository.CustomerRepository
 import br.com.feign.example.customer.infrastructure.exception.CustomerErrorCode
 import br.com.feign.example.global.exception.BusinessException
 import java.util.*
-import javax.validation.constraints.NotNull
 
 class Customer(
-        @field:NotNull val id: Id,
-        val fullName: FullName? = null,
-        val nickName: NickName? = null,
-        val birthDate: BirthDate? = null,
-        @field:NotNull val gender: Gender,
-        val civilState: CivilState? = null
+    val id: Id,
+    val fullName: FullName,
+    val nickName: NickName? = null,
+    val birthDate: BirthDate? = null,
+    val gender: Gender,
+    val civilState: CivilState? = null
 ) {
 
     var status: Customer.Status = Status.ACTIVE
@@ -71,9 +70,7 @@ class Customer(
     data class Id(val value: String = UUID.randomUUID().toString())
 
     enum class Status {
-
         ACTIVE,
         INACTIVE
-
     }
 }
