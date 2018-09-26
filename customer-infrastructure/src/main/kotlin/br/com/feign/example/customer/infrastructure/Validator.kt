@@ -5,6 +5,7 @@ import javax.validation.Validation
 import javax.validation.Validator
 
 object Validator {
+
     val validator: Validator by lazy {
         Validation.buildDefaultValidatorFactory().validator
     }

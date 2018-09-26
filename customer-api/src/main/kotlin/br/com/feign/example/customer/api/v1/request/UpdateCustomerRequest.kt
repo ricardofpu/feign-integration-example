@@ -6,8 +6,9 @@ import javax.validation.constraints.NotNull
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class UpdateCustomerRequest(
-        @field:[NotNull Valid] val fullName: String?,
-        @field:[Valid] val nickName: String?,
-        @field:[Valid] val birthDate: String?,
-        @field:[NotNull Valid] val gender: String?,
-        @field:[Valid] val civilState: String?)
+    @field:[NotNull Valid] val fullName: String?,
+    @field:[Valid] val nickName: String? = null,
+    @field:[Valid] val birthDate: String? = null,
+    @field:[Valid] val gender: String? = null,
+    @field:[Valid] val civilState: String? = null
+)

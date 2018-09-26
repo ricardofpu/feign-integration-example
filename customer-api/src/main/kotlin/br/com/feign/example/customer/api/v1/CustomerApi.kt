@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -29,8 +30,10 @@ interface CustomerApi {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @PutMapping("/{customerId}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun update(@PathVariable("customerId") customerId: String,
-               @RequestBody @Valid request: UpdateCustomerRequest): CustomerRepresentation
+    fun update(
+        @PathVariable("customerId") customerId: String,
+        @RequestBody @Valid request: UpdateCustomerRequest
+    ): CustomerRepresentation
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
@@ -39,14 +42,20 @@ interface CustomerApi {
 
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @RequestMapping(value = ["/{customerId}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @RequestMapping(
+        value = ["/{customerId}"],
+        method = [RequestMethod.GET],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
     fun find(@PathVariable("customerId") customerId: String): CustomerRepresentation
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    @GetMapping("/{customerId}/status", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun updateStatus(@PathVariable("customerId") customerId: String,
-                     @RequestBody @Valid request: UpdateStatusRequest)
+    @PatchMapping("/{customerId}/status", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun updateStatus(
+        @PathVariable("customerId") customerId: String,
+        @RequestBody @Valid request: UpdateStatusRequest
+    )
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody

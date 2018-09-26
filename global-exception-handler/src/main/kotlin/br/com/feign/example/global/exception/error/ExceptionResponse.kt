@@ -20,6 +20,11 @@ open class ExceptionResponse {
         this.errorMessage = errorMessage
     }
 
+    constructor(code: Int, fields: Map<String, List<String>>) {
+        this.code = code
+        this.fields = fields
+    }
+
     constructor(code: Int, errorMessage: String, fields: Map<String, List<String>>) {
         this.code = code
         this.errorMessage = errorMessage
@@ -31,7 +36,7 @@ open class ExceptionResponse {
     }
 
     constructor(errorCode: ErrorCode?) {
-        this.errorMessage = errorCode?.message
+        this.errorMessage = errorCode?.key
     }
 
 }

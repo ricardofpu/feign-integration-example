@@ -42,12 +42,21 @@ open class JdbcCustomerRepository @Autowired constructor(private val jdbcTemplat
     }
 
     override fun save(customer: Customer): Int {
-        val sql = """insert into $TABLE_NAME ($ID_COLUMN, $FULL_NAME_COLUMN, $NICK_NAME_COLUMN, $BIRTH_DATE_COLUMN, $GENDER_COLUMN,
-                $CIVIL_STATE_COLUMN, $STATUS_COLUMN, $CREATED_AT_COLUMN) values (?,?,?,?,?,?,?,now())
+        val sql = """
+              insert into $TABLE_NAME ($ID_COLUMN, $FULL_NAME_COLUMN, $NICK_NAME_COLUMN, $BIRTH_DATE_COLUMN,
+                $GENDER_COLUMN, $CIVIL_STATE_COLUMN, $STATUS_COLUMN, $CREATED_AT_COLUMN)
+              values (?, ?, ?, ?, ?, ?, ?, now())
                   """
         return try {
-            jdbcTemplate.update(sql, customer.id.value, customer.fullName?.value, customer.nickName?.value,
-                    customer.birthDate?.value, customer.gender.value, customer.civilState?.value, customer.status.name)
+            jdbcTemplate.update(
+                sql, customer.id.value,
+                customer.fullName.value,
+                customer.nickName?.value,
+                customer.birthDate?.value,
+                customer.gender.value,
+                customer.civilState?.value,
+                customer.status.name
+            )
         } catch (e: DuplicateKeyException) {
             logger.warn("Fail to save Customer, key duplicate for id: {}", customer.id.value, e)
             0
@@ -65,8 +74,15 @@ open class JdbcCustomerRepository @Autowired constructor(private val jdbcTemplat
                         $UPDATED_AT_COLUMN = now()
                     where $ID_COLUMN = ?
                 """
-        return jdbcTemplate.update(sql, customer.fullName?.value, customer.nickName?.value, customer.birthDate?.value, customer.gender.value,
-                customer.civilState?.value, customer.id.value)
+        return jdbcTemplate.update(
+            sql,
+            customer.fullName.value,
+            customer.nickName?.value,
+            customer.birthDate?.value,
+            customer.gender.value,
+            customer.civilState?.value,
+            customer.id.value
+        )
     }
 
     override fun updateStatus(customerId: Customer.Id, status: Customer.Status): Int {

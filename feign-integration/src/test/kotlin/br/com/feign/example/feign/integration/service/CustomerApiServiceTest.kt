@@ -15,7 +15,7 @@ class CustomerApiServiceTest : BaseTest() {
 
     @Test
     fun getCustomerSuccess() {
-        val customer = customerApi.getCustomer(Customer.Id())
+        val customer = customerApi.findById(Customer.Id())
         assertNotNull(customer)
         assertNotNull(customer.id)
         assertNotNull(customer.fullName?.value)
@@ -27,7 +27,7 @@ class CustomerApiServiceTest : BaseTest() {
 
     @Test(expected = NotFoundException::class)
     fun getCustomerNotFound() {
-        customerApi.getCustomer(Customer.Id("notfound"))
+        customerApi.findById(Customer.Id("notfound"))
     }
 
 }

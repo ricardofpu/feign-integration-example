@@ -32,7 +32,7 @@ open class GlobalExceptionHandler {
         return ExceptionResponse("Access denied error")
     }
 
-    @ExceptionHandler(ClassNotFoundException::class)
+    @ExceptionHandler(NotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected fun handleNotFound(ex: NotFoundException): ResourceValueResponse? {
         return if (ex.resourceValue != null) ResourceValueResponse(ex.resourceValue!!) else null

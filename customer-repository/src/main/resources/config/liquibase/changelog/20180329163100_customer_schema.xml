@@ -10,27 +10,27 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="full_name" type="java.sql.Types.CLOB">
+            <column name="full_name" type="java.sql.Types.VARCHAR">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="nick_name" type="java.sql.Types.CLOB">
+            <column name="nick_name" type="java.sql.Types.VARCHAR">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="birth_date" type="java.sql.Types.CLOB">
+            <column name="birth_date" type="java.sql.Types.VARCHAR">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="gender" type="java.sql.Types.CLOB">
+            <column name="gender" type="java.sql.Types.VARCHAR">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="civil_state" type="java.sql.Types.CLOB">
+            <column name="civil_state" type="java.sql.Types.VARCHAR">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="status" type="java.sql.Types.CLOB">
+            <column name="status" type="java.sql.Types.VARCHAR">
                 <constraints nullable="false"/>
             </column>
 
@@ -38,7 +38,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updated_at" type="timestamp">
+            <column name="updated_at" type="java.sql.Types.TIMESTAMP">
                 <constraints nullable="true"/>
             </column>
 

@@ -1,6 +1,11 @@
 package br.com.feign.example.customer.repository.mapper
 
-import br.com.feign.example.customer.domain.*
+import br.com.feign.example.customer.domain.BirthDate
+import br.com.feign.example.customer.domain.CivilState
+import br.com.feign.example.customer.domain.Customer
+import br.com.feign.example.customer.domain.FullName
+import br.com.feign.example.customer.domain.Gender
+import br.com.feign.example.customer.domain.NickName
 import br.com.feign.example.customer.repository.JdbcCustomerRepository
 import org.springframework.jdbc.core.RowMapper
 import java.sql.ResultSet
@@ -22,9 +27,9 @@ class CustomerMapper : RowMapper<Customer> {
         customer = Customer(
                 id = Customer.Id(id),
                 fullName = FullName(fullName),
-                nickName = NickName(nickName),
-                birthDate = BirthDate(birthDate),
-                civilState = CivilState(civilState),
+                nickName = if (nickName != null) NickName(nickName) else null,
+                birthDate = if (birthDate != null) BirthDate(birthDate) else null,
+                civilState = if (civilState != null) CivilState(civilState) else null,
                 gender = Gender(gender)
         )
 

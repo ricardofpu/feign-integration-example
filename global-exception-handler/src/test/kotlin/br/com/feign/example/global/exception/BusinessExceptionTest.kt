@@ -23,7 +23,7 @@ class BusinessExceptionTest {
         } catch (e: BusinessException) {
             Assert.assertNotNull(e)
             Assert.assertNotNull(e.errorCode)
-            Assert.assertEquals(e.errorCode?.message, getBusinessMessage())
+            Assert.assertEquals(e.errorCode?.key, getBusinessMessage())
         }
 
     }
