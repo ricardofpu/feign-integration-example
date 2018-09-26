@@ -47,10 +47,10 @@ open class CustomerCommandHandler constructor(
         val newCustomer = Customer(
             id = command.customerId,
             fullName = command.fullName,
-            nickName = command.nickName,
-            birthDate = command.birthDate,
-            gender = command.gender,
-            civilState = command.civilState
+            nickName = command.nickName?.let { command.nickName } ?: customer.nickName,
+            birthDate = command.birthDate?.let { command.birthDate } ?: customer.birthDate,
+            gender = command.gender?.let { command.gender } ?: customer.gender,
+            civilState = command.civilState?.let { command.civilState } ?: customer.civilState
         )
 
         newCustomer.update(repository, customer)

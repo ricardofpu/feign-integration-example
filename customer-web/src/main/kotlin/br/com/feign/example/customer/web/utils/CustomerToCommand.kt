@@ -16,9 +16,9 @@ fun CreateCustomerRequest.toCommand(): CreateCustomer =
     CreateCustomer(
         customerId = Customer.Id(),
         fullName = FullName(this.fullName),
-        nickName = if (nickName != null) NickName(this.nickName) else null,
-        birthDate = if (birthDate != null) BirthDate(this.birthDate) else null,
-        civilState = if (civilState != null) CivilState(this.civilState) else null,
+        nickName = this.nickName?.let { NickName(this.nickName) },
+        birthDate = this.birthDate?.let { BirthDate(this.birthDate) },
+        civilState = this.civilState?.let { CivilState(this.civilState) },
         gender = Gender(this.gender)
     )
 
@@ -26,8 +26,8 @@ fun UpdateCustomerRequest.toCommand(customerId: String): UpdateCustomer =
     UpdateCustomer(
         customerId = Customer.Id(customerId),
         fullName = FullName(this.fullName),
-        nickName = if (nickName != null) NickName(this.nickName) else null,
-        birthDate = if (birthDate != null) BirthDate(this.birthDate) else null,
-        civilState = if (civilState != null) CivilState(this.civilState) else null,
-        gender = Gender(this.gender)
+        nickName = this.nickName?.let { NickName(this.nickName) },
+        birthDate = this.birthDate?.let { BirthDate(this.birthDate) },
+        civilState = this.civilState?.let { CivilState(this.civilState) },
+        gender = this.gender?.let { Gender(this.gender) }
     )

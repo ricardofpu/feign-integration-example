@@ -2,6 +2,7 @@ package br.com.feign.example.customer.web
 
 import br.com.feign.example.customer.api.v1.representation.CustomerRepresentation
 import br.com.feign.example.customer.api.v1.request.CreateCustomerRequest
+import br.com.feign.example.customer.api.v1.request.UpdateStatusRequest
 import br.com.feign.example.customer.infrastructure.jsonToObject
 import br.com.feign.example.customer.infrastructure.objectToJson
 import br.com.feign.example.customer.web.config.ApplicationConfigTest
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.MessageSource
 import org.springframework.context.support.MessageSourceAccessor
 import org.springframework.http.MediaType
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.jdbc.Sql
@@ -76,6 +78,20 @@ abstract class ControllerBaseTest {
             .andReturn()
 
         return response.response.contentAsString.jsonToObject(CustomerRepresentation::class.java)
+    }
+
+    protected fun requestToUpdateCustomerStatus(
+        customerId: String,
+        request: UpdateStatusRequest = UpdateStatusRequest(status = "INACTIVE")
+    ) {
+        this.mockMvc.perform(
+            patch(
+                "/v1/customers/{id}/status", customerId
+            )
+                .content(request.objectToJson())
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+            .andExpect(MockMvcResultMatchers.status().isNoContent)
     }
 
     protected fun buildCreateCustomerRequest(): CreateCustomerRequest =

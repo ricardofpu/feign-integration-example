@@ -25,7 +25,7 @@ data class UpdateCustomer(
     val fullName: FullName,
     val nickName: NickName? = null,
     val birthDate: BirthDate? = null,
-    val gender: Gender,
+    val gender: Gender? = null,
     val civilState: CivilState? = null
 )
 

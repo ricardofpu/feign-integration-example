@@ -2,6 +2,7 @@ package br.com.feign.example.customer.web.controller.v1
 
 import br.com.feign.example.customer.api.v1.representation.CustomerRepresentation
 import br.com.feign.example.customer.api.v1.request.UpdateCustomerRequest
+import br.com.feign.example.customer.api.v1.request.UpdateStatusRequest
 import br.com.feign.example.customer.domain.Customer
 import br.com.feign.example.customer.domain.randomUUID
 import br.com.feign.example.customer.infrastructure.jsonToObject
@@ -10,7 +11,9 @@ import br.com.feign.example.customer.web.ControllerBaseTest
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Test
 import org.springframework.http.MediaType
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -106,17 +109,39 @@ class CustomerControllerTest : ControllerBaseTest() {
                 assertEquals(Customer.Status.ACTIVE.name, response.status)
             }
     }
-//
-//    @Test
-//    fun `should delete customer`() {
-//        val customer = requestToCreateCustomer()
-//
-//        this.mockMvc.perform(
-//            delete(
-//                "/v1/customers/{id}", customer.id
-//            )
-//        )
-//            .andExpect(status().isOk)
-//    }
+
+    @Test
+    fun `should delete customer`() {
+        val customer = requestToCreateCustomer()
+
+        requestToUpdateCustomerStatus(
+            customerId = customer.id!!, request = UpdateStatusRequest(status = "INACTIVE")
+        )
+
+        this.mockMvc.perform(
+            delete(
+                "/v1/customers/{id}", customer.id
+            )
+        )
+            .andExpect(status().isNoContent)
+    }
+
+    @Test
+    fun `should update customer status`() {
+        val customer = requestToCreateCustomer()
+
+        val request = UpdateStatusRequest(
+            status = "INACTIVE"
+        )
+
+        this.mockMvc.perform(
+            patch(
+                "/v1/customers/{id}/status", customer.id
+            )
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(request.objectToJson())
+        )
+            .andExpect(status().isNoContent)
+    }
 
 }
